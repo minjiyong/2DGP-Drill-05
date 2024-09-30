@@ -1,3 +1,5 @@
+from tabnanny import check
+
 from pico2d import *
 
 
@@ -34,8 +36,13 @@ def handle_events():
             elif event.key == SDLK_DOWN:
                 dir_ud += 1
 
+
 def check_border():
-    pass
+    global x, y
+    if x - 35 <= 0 or x + 35 >= 800:
+        x -= dir_lr * 10
+    if y - 35 <= 0 or y + 35 >= 600:
+        y -= dir_ud * 10
 
 
 running = True
@@ -65,8 +72,9 @@ while running:
     handle_events()
     frame = (frame + 1) % 6
     frame_idle = (frame_idle + 1) % 10
-    x += dir_lr * 5
-    y += dir_ud * 5
+    x += dir_lr * 10
+    y += dir_ud * 10
+    check_border()
     delay(0.05)
 
 
